@@ -26,3 +26,7 @@ map_and_data <- inner_join(map_dist, district)
 tm_shape(map_and_data) + tm_polygons("Population_Density",id = "NAME_2",palette = "Reds")
 tmap_mode("view")
 tmap_mode("plot")
+
+tmap_mode("view")
+tm_shape(map_and_data) +
+    tm_bubbles(size = "Population_Density", col = "red", id = "NAME_2")
