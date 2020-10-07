@@ -11,3 +11,9 @@ ggplot(data, aes(x = data$type, y = data$value)) +
         size = 10/.pt,
         hjust = 0)
 
+
+
+###################################
+
+reference
+https://github.com/ovirahman/dataviz/blob/master/visualizing_associations.Rmd

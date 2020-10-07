@@ -69,3 +69,13 @@ map2 <- filter(map, ADM2_EN == "Sunamganj")
 tm_shape(map2) + tm_polygons("ADM4_EN",id = "ADM4_EN", legend.show = F)
 
 
+
+
+##############tryin leaflet
+map_and_data %>% leaflet() %>% 
+    addTiles() %>% 
+    addPolygons(color = ~pal(log(Population_Density)), 
+                fillOpacity = 1, weight = 1, 
+                label = ~paste0(ADM2_EN,": ",
+                                Population_Density, " per sq km"))
+
