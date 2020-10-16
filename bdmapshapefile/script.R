@@ -4,16 +4,25 @@ library(tmaptools)
 library(leaflet)
 library(dplyr)
 
-map<-st_read("gadm36_BGD_shp/gadm36_BGD_1.shp")
+map<-st_read("bgd_admbnda_adm1_bbs_20180410/bgd_admbnda_adm1_bbs_20180410.shp")
 data<- read.csv("population.csv")
-data <- data.frame(NAME_1 = data$Division, Population = data$Population)
+#data <- data.frame(NAME_1 = data$Division, Population = data$Population)
 data$Population <- gsub(",","", data$Population)
+data$Density <- gsub(",","", data$Density)
 data$Population <- as.numeric(data$Population)
-mapanddata<- inner_join(map,data)
+data$Density <- as.numeric(data$Density)
+mapanddata<- inner_join(map,data, by = c("ADM1_EN" = "Division"))
 
-tm_shape(mapanddata) + tm_polygons("Population",palette = "Greens")
+tm_shape(mapanddata) + tm_polygons("Density",palette = "Reds", id = "ADM1_EN")
 tmap_mode("view")
-tmap_last()
+#tmap_last()
+
+
+tmap_leaflet(tm_shape(mapanddata) + 
+tm_polygons("Density",palette = "Reds", id = "ADM1_EN")) %>% 
+    addControl("<b>Population Density</b><br>source: wikipedia", position = "bottomleft")
+
+
 
 map_dist <- st_read("gadm36_BGD_shp/gadm36_BGD_2.shp")
 district <- read.csv("Districts.csv")
