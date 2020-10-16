@@ -14,7 +14,7 @@ mapanddata<- inner_join(map,data)
 tm_shape(mapanddata) + tm_polygons("Population",palette = "Greens")
 tmap_mode("view")
 tmap_last()
-
+######
 map_dist <- st_read("gadm36_BGD_shp/gadm36_BGD_2.shp")
 district <- read.csv("Districts.csv")
 district <- data.frame(District = district$District, Density = district$Pop.Density.in.2011)
@@ -24,8 +24,8 @@ district <- data.frame(NAME_2 = district$District, Population_Density = district
 map_and_data <- inner_join(map_dist, district)
 
 tmap_mode("plot")
-tm_shape(map_and_data) + tm_polygons("Population_Density",id = "NAME_2",palette = "Reds")
-
+tm_shape(map_and_data) + tm_polygons("Population_Density",id = "NAME_2",palette = "Reds", style = "quantile") + tm_style("cobalt")
+######
 
 tmap_mode("view")
 tm_shape(map_and_data) + tm_polygons("Population_Density",id = "NAME_2",palette = "Reds")
