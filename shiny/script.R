@@ -36,3 +36,41 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+
+
+
+
+
+
+
+###############################
+
+
+library(shiny)
+library(dplyr)
+library(sp)
+map <- rgdal::readOGR("bgd_admbnda_adm2_bbs_20180410/", "bgd_admbnda_adm2_bbs_20180410")
+
+ui <- fluidPage(
+  selectInput("select", "Division", c(levels(map$ADM1_EN)), "Sylhet"),
+  plotOutput("plot")  
+)
+
+server <- function(input, output, session) {
+  
+  output$plot <- renderPlot({
+    plot(map[map$ADM1_EN == input$select,], col = "red")
+  })
+}
+
+shinyApp(ui, server)
+
+
+
+
+
+
+
+
+
